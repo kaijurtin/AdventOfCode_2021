@@ -29,9 +29,11 @@ namespace AdventOfCodeStartProject
 
             int countIncrease = 0;
 
-            for (int i = 0; i < _inputDataINT.Count-1; i++)
+            for (int i = 0; i < _inputDataINT.Count-3; i++)
             {
-                if (_inputDataINT[i+1] > _inputDataINT[i])
+                int sumOne = _inputDataINT[i] + _inputDataINT[i + 1] + _inputDataINT[i + 2];
+                int sumTwo = _inputDataINT[i+1] + _inputDataINT[i + 2] + _inputDataINT[i + 3];
+                if (sumTwo>sumOne)
                 countIncrease++;
 
 
