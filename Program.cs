@@ -11,6 +11,7 @@ namespace AdventOfCodeStartProject
         //each line in the list of strings represents one line in the txt file
         //copy the data you get on the adventofcode website into the txt file and start coding!
         private static List<string> _inputData;
+        //private static int aim = 0;
 
         static void Main(string[] args)
         {
@@ -25,25 +26,40 @@ namespace AdventOfCodeStartProject
             //Console.WriteLine("Content of input.txt:");
             //_inputData.ForEach(i => Console.WriteLine(i));
             //Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
-            List<int> _inputDataINT = _inputData.ConvertAll(item => int.Parse(item));
+            //List<int> _inputDataINT = _inputData.ConvertAll(item => int.Parse(item));
 
-            int countIncrease = 0;
+            int horizontal = 0;
+            int depth = 0;
+            int aim = 0;
 
-            for (int i = 0; i < _inputDataINT.Count-3; i++)
+            for (int i = 0; i < _inputData.Count; i++)
             {
-                int sumOne = _inputDataINT[i] + _inputDataINT[i + 1] + _inputDataINT[i + 2];
-                int sumTwo = _inputDataINT[i+1] + _inputDataINT[i + 2] + _inputDataINT[i + 3];
-                if (sumTwo>sumOne)
-                countIncrease++;
+                var s= _inputData[i];
+                int value = int.Parse(s.Substring(s.Length - 1));
+                ;
+
+                if (s.Contains("forward"))
+                {
+                    horizontal += value;
+                    depth +=  value * aim;
+                }
+                if (s.Contains("down"))
+                    aim += value;
+                    //depth+=value;
+                if (s.Contains("up"))
+                    aim -= value;
+                    //depth -= value;
 
 
                 //Console.ReadKey();
 
-            }                
-                Console.WriteLine("Increased Depth: " + countIncrease);
+            }
+            Console.WriteLine("Horizontal: " + horizontal);
+            Console.WriteLine("Depth: " + depth);
+            Console.WriteLine("Result: " + depth*horizontal);
 
-                //keep console open
-                Console.WriteLine("Hit any key to close this window...");
+            //keep console open
+            Console.WriteLine("Hit any key to close this window...");
                 Console.ReadKey();
             
         }
