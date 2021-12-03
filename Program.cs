@@ -43,14 +43,16 @@ namespace AdventOfCodeStartProject
                         countzero++;
                     else countone++;
                 }
-                
-                
-                if (countone >= countzero)
-                    oxygen = oxygen.Where(x => x[j] == '1').ToList();
-                if (countone < countzero)
-                    oxygen = oxygen.Where(x => x[j] == '0').ToList();
-                if (oxygen.Count == 1)
-                    oxrat = oxygen.First();
+
+
+                    if (countone >= countzero)
+                        oxygen = oxygen.Where(x => x[j] == '1').ToList();
+                    if (countone < countzero)
+                        oxygen = oxygen.Where(x => x[j] == '0').ToList();
+                    if (oxygen.Count == 1)
+                        oxrat = oxygen.First();
+                countzero = 0;
+                countone = 0;
 
 
                 for (int i = 0; i < cotwo.Count; i++)
@@ -61,13 +63,13 @@ namespace AdventOfCodeStartProject
                         countzero++;
                     else countone++;
                 }
-                if (countone >= countzero)
-                    cotwo = cotwo.Where(x => x[j] == '0').ToList();
-                if (countone < countzero)
-                    cotwo = cotwo.Where(x => x[j] == '1').ToList();
-                if (cotwo.Count == 1)
-                    corat = cotwo.First();
-
+                    if (countone >= countzero)
+                        cotwo = cotwo.Where(x => x[j] == '0').ToList();
+                    if (countone < countzero)
+                        cotwo = cotwo.Where(x => x[j] == '1').ToList();
+                    if (cotwo.Count == 1)
+                        corat = cotwo.First();
+                
                 //oxrat = oxygen.Select(x => x.Count = 1).Select(x => x);                        
                 //   if(cotwo.Count == 1)
                 //       cotwo.First().ToString();   
