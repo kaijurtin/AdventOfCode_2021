@@ -26,7 +26,6 @@ namespace AdventOfCodeStartProject
             int countone = 0;
             string oxrat = string.Empty;
             string corat = string.Empty;
-            int powerconsumption = 0;
             List<string> oxygen = _inputData.ToList();
             List<string> cotwo = _inputData.ToList();
 
@@ -36,55 +35,63 @@ namespace AdventOfCodeStartProject
                 countzero = 0;
                 countone = 0;
 
-                for (int i = 0; i < _inputData.Count; i++)
+                for (int i = 0; i < oxygen.Count; i++)
                 {
-                    string s = _inputData[i];
+                    string s = oxygen[i];
                     char c = s[j];
                     if (c == '0')
                         countzero++;
                     else countone++;
                 }
+                
+                
+                if (countone >= countzero)
+                    oxygen = oxygen.Where(x => x[j] == '1').ToList();
+                if (countone < countzero)
+                    oxygen = oxygen.Where(x => x[j] == '0').ToList();
+                if (oxygen.Count == 1)
+                    oxrat = oxygen.First();
 
-                //for (int i = 0; i < _inputData.Count; i++)
-                //{
-                if (countone >= countzero && oxygen.Count > 0)
-                        oxygen = oxygen.Where(x => x[j] == '1').ToList();
-                if (countone < countzero && oxygen.Count > 0)
-                        oxygen = oxygen.Where(x => x[j] == '0').ToList();
-                if (countone >= countzero && cotwo.Count > 0)
+
+                for (int i = 0; i < cotwo.Count; i++)
+                {
+                    string s = cotwo[i];
+                    char c = s[j];
+                    if (c == '0')
+                        countzero++;
+                    else countone++;
+                }
+                if (countone >= countzero)
                     cotwo = cotwo.Where(x => x[j] == '0').ToList();
-                if (countone < countzero && cotwo.Count > 0)
+                if (countone < countzero)
                     cotwo = cotwo.Where(x => x[j] == '1').ToList();
+                if (cotwo.Count == 1)
+                    corat = cotwo.First();
 
-                 oxrat = oxygen.Select(x => x.Count = 1).Select(x => x);                        
-                    if(cotwo.Count == 1)
-                        cotwo.First().ToString();   
+                //oxrat = oxygen.Select(x => x.Count = 1).Select(x => x);                        
+                //   if(cotwo.Count == 1)
+                //       cotwo.First().ToString();   
+
+
+            }
+            int decimalcorat = Convert.ToInt32(corat, 2);
+            int decimaloxrat = Convert.ToInt32(oxrat, 2);
+            int result = decimalcorat * decimaloxrat;
+
+
+
+            Console.WriteLine(corat);
+            Console.WriteLine(oxrat);
+
+            Console.WriteLine(decimalcorat);
+                Console.WriteLine(decimaloxrat);
+                Console.WriteLine(result);
+
+
+
+
+
             
-
-
-            int decimalgamma = Convert.ToInt32(gammarate, 2);
-            int decimalepsilon = Convert.ToInt32(epsilonrate, 2);
-            //powerconsumption = decimalepsilon * decimalgamma;
-
-
-
-
-            //Console.WriteLine(gammarate + "/n" + decimalgamma);
-            //Console.WriteLine(epsilonrate + "/n" + decimalepsilon);    
-            //Console.WriteLine(powerconsumption);
-
-
-
-        
-
-            foreach (string i in oxygen)
-            {
-                Console.WriteLine(i);
-            }
-            foreach (string i in cotwo)
-            {
-                Console.WriteLine(i);
-            }
             Console.WriteLine("Hit any key to close this window...");
             Console.ReadKey();
 
