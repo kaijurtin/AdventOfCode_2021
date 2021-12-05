@@ -20,80 +20,41 @@ namespace AdventOfCodeStartProject
 
             //read data from input.txt and write it into inputdata field
             readInput();
+            //List<int> _inputDataINT = _inputData.ConvertAll(item => int.Parse(item));
 
 
-            int countzero = 0;
-            int countone = 0;
-            string oxrat = string.Empty;
-            string corat = string.Empty;
-            List<string> oxygen = _inputData.ToList();
-            List<string> cotwo = _inputData.ToList();
+            List<string> numbers = _inputData.First().Split(',').ToList();
+            //List<string> blocksonly = _inputData[3].Split().Where(x => x != "").ToList();
+            List<string> blocksonly = new List<string>();
+            int arraylength = 5;
+            Array  [,] boxes = new Array[arraylength, arraylength];
 
-            for (int j = 0; j < _inputData.First().Length; j++)
+            for (int i = 2; i < _inputData.Count - 2; i++)
             {
 
-                countzero = 0;
-                countone = 0;
+                blocksonly = _inputData[i].Split().Where(x => x != "").ToList();
 
-                for (int i = 0; i < oxygen.Count; i++)
+                boxes[0, 0] = blocksonly[1].ToArray();
+                Console.WriteLine(blocksonly[1]);
+
+                for (int j=0; j < blocksonly.Count; j++)
                 {
-                    string s = oxygen[i];
-                    char c = s[j];
-                    if (c == '0')
-                        countzero++;
-                    else countone++;
+                    boxes[i, j] = blocksonly[j].ToArray();
+                    Console.WriteLine(boxes[i, j]);
                 }
-
-
-                    if (countone >= countzero)
-                        oxygen = oxygen.Where(x => x[j] == '1').ToList();
-                    if (countone < countzero)
-                        oxygen = oxygen.Where(x => x[j] == '0').ToList();
-                    if (oxygen.Count == 1)
-                        oxrat = oxygen.First();
-                countzero = 0;
-                countone = 0;
-
-
-                for (int i = 0; i < cotwo.Count; i++)
-                {
-                    string s = cotwo[i];
-                    char c = s[j];
-                    if (c == '0')
-                        countzero++;
-                    else countone++;
-                }
-                    if (countone >= countzero)
-                        cotwo = cotwo.Where(x => x[j] == '0').ToList();
-                    if (countone < countzero)
-                        cotwo = cotwo.Where(x => x[j] == '1').ToList();
-                    if (cotwo.Count == 1)
-                        corat = cotwo.First();
-                
-                //oxrat = oxygen.Select(x => x.Count = 1).Select(x => x);                        
-                //   if(cotwo.Count == 1)
-                //       cotwo.First().ToString();   
-
 
             }
-            int decimalcorat = Convert.ToInt32(corat, 2);
-            int decimaloxrat = Convert.ToInt32(oxrat, 2);
-            int result = decimalcorat * decimaloxrat;
 
 
 
-            Console.WriteLine(corat);
-            Console.WriteLine(oxrat);
-
-            Console.WriteLine(decimalcorat);
-                Console.WriteLine(decimaloxrat);
-                Console.WriteLine(result);
+            //List <string> box = _inputData.Select(x => x.Split(" ").ToList();
 
 
 
 
 
-            
+
+
             Console.WriteLine("Hit any key to close this window...");
             Console.ReadKey();
 
