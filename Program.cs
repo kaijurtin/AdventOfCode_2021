@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 
+
+
 namespace AdventOfCodeStartProject
 {
     static class AdventOfCode
@@ -26,57 +28,50 @@ namespace AdventOfCodeStartProject
             List<string> numbers = _inputData.First().Split(',').ToList();
             //List<string> blocksonly = _inputData[3].Split().Where(x => x != "").ToList();
             List<string> bingoLine = new List<string>();
-            //int arraylength = 5;
-            //Array  [,] boxes = new Array[arraylength, arraylength];
+
+            int arraylength = 5;
+            Array  [,] boxes = new Array[arraylength, arraylength];
+            List <string> listofboxes= new List<string>();
+
             int winningNumber = 0;
             List<int> lineHits = new List<int>();
             List<WinLine> winningLines= new List<WinLine>();
+            int boxID = 0;
 
+            int counterLine = 0;
             for (int i = 2; i < _inputData.Count - 2; i++)
             {
 
                 bingoLine = _inputData[i].Split().Where(x => x != "").ToList();
-                //int counterLine = 0;
-                //int countercolumn = 0;
-
-                int winningLine = 0;
-                int winningNumberIndex=0;
-                bool winnerLine = false;
-
-                for (int j=0; j < numbers.Count; j++)
+                foreach(string item in bingoLine)
                 {
-                    //bingoLine = bingoLine.Where(x=>x.Equals(numbers[j])).ToList();
-                    if (bingoLine.Contains(numbers[j]))
-                        lineHits.Add(Int32.Parse(numbers[j]));
-
-
-                    if (lineHits.Count == 5)
-                    {
-                        winnerLine = true;
-                        //winningNumber = Int32.Parse(numbers[j]);
-                        //winningNumberIndex = j;
-                        //winningLine = i;
-                        winningLines.Add(new WinLine(i, Int32.Parse(numbers[j]), j));
-                        break;
-                    }
-                    
+                    Console.WriteLine("number " + item + "\t index " + bingoLine.IndexOf(item));
                 }
-                lineHits.Clear();
+                //for (int j = 0; j < bingoLine.Count; j++)
+                //{
+                //    boxes[j, i] = bingoLine[j];
 
-                if (winnerLine = true)
-                {
+
+                //}
+                //counterLine ++;
+                //if (counterLine == 5)
+                //{
+                //    boxID++;
+                //    counterLine = 0;
+                //    listofboxes.Add(boxes);
+                //    BingoCard card = new BingoCard();
+                //}
+            }
+
+
                     //Console.WriteLine("Number: " + winningNumber);
                     //Console.WriteLine("Number Index: " + winningNumberIndex);
                     //Console.WriteLine("Line: " + winningLine);
-                foreach(object WinLine in winningLines)
-                    { Console.WriteLine(WinLine.ToString()); }
-                            
                             //Console.ReadKey();
-                }
-                winnerLine = false;
+                
 
 
-            }
+            
 
 
             //List <string> box = _inputData.Select(x => x.Split(" ").ToList();
