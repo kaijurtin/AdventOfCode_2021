@@ -9,9 +9,10 @@ public class BingoCard
 	
 	
 	
-	public BingoCard (int id, int card)
+	public BingoCard (int id, int[,] card)
 	{
 		this.id = id;
+		this.card = card;
 		
 	}
 

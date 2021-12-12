@@ -30,8 +30,8 @@ namespace AdventOfCodeStartProject
             List<string> bingoLine = new List<string>();
 
             int arraylength = 5;
-            Array  [,] boxes = new Array[arraylength, arraylength];
-            List <string> listofboxes= new List<string>();
+            int  [,] boxes = new int[arraylength, arraylength];
+            List <int[,]> listofboxes= new List<int[,]>();
 
             int winningNumber = 0;
             List<int> lineHits = new List<int>();
@@ -39,39 +39,49 @@ namespace AdventOfCodeStartProject
             int boxID = 0;
 
             int counterLine = 0;
-            for (int i = 2; i < _inputData.Count - 2; i++)
+            for (int i = 2; i < _inputData.Count; i++)
             {
+                if (_inputData[i] == "")
+                {
+                    i++;
+                }
 
                 bingoLine = _inputData[i].Split().Where(x => x != "").ToList();
-                foreach(string item in bingoLine)
+
+
+                //print all numbers of the line with index
+                /*foreach(string item in bingoLine)
                 {
                     Console.WriteLine("number " + item + "\t index " + bingoLine.IndexOf(item));
                 }
-                //for (int j = 0; j < bingoLine.Count; j++)
-                //{
-                //    boxes[j, i] = bingoLine[j];
+                */
+                for (int j = 0; j < bingoLine.Count; j++)
+                {
+                    
+                    int value = int.Parse(bingoLine[j]);
+                    boxes[j, counterLine] = value;
+                }
 
+                counterLine++;
 
-                //}
-                //counterLine ++;
-                //if (counterLine == 5)
-                //{
-                //    boxID++;
-                //    counterLine = 0;
-                //    listofboxes.Add(boxes);
-                //    BingoCard card = new BingoCard();
-                //}
+                if (counterLine == 5)
+                {
+                    boxID++;
+                    counterLine = 0;
+                    listofboxes.Add(boxes);
+                    BingoCard card = new BingoCard(boxID, boxes);
+                }
             }
 
 
-                    //Console.WriteLine("Number: " + winningNumber);
-                    //Console.WriteLine("Number Index: " + winningNumberIndex);
-                    //Console.WriteLine("Line: " + winningLine);
-                            //Console.ReadKey();
-                
+            Console.WriteLine("Number of Bingo Cards: " + listofboxes.Count);
+            //Console.WriteLine("Number Index: " + winningNumberIndex);
+            //Console.WriteLine("Line: " + winningLine);
+            //Console.ReadKey();
 
 
-            
+
+
 
 
             //List <string> box = _inputData.Select(x => x.Split(" ").ToList();
