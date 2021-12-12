@@ -13,7 +13,8 @@ namespace AdventOfCodeStartProject
         //each line in the list of strings represents one line in the txt file
         //copy the data you get on the adventofcode website into the txt file and start coding!
         private static List<string> _inputData;
-
+        private static List<string> numbers = _inputData.First().Split(',').ToList();
+        private static List<int> nums = numbers.ConvertAll(item => int.Parse(item));
 
         static void Main(string[] args)
         {
@@ -25,17 +26,16 @@ namespace AdventOfCodeStartProject
             //List<int> _inputDataINT = _inputData.ConvertAll(item => int.Parse(item));
 
 
-            List<string> numbers = _inputData.First().Split(',').ToList();
             //List<string> blocksonly = _inputData[3].Split().Where(x => x != "").ToList();
             List<string> bingoLine = new List<string>();
 
             int arraylength = 5;
-            int  [,] boxes = new int[arraylength, arraylength];
-            List <int[,]> listofboxes= new List<int[,]>();
+            int[,] boxes = new int[arraylength, arraylength];
+            List<int[,]> listofboxes = new List<int[,]>();
 
             int winningNumber = 0;
             List<int> lineHits = new List<int>();
-            List<WinLine> winningLines= new List<WinLine>();
+            List<WinLine> winningLines = new List<WinLine>();
             int boxID = 0;
 
             int counterLine = 0;
@@ -57,7 +57,7 @@ namespace AdventOfCodeStartProject
                 */
                 for (int j = 0; j < bingoLine.Count; j++)
                 {
-                    
+
                     int value = int.Parse(bingoLine[j]);
                     boxes[j, counterLine] = value;
                 }
@@ -75,28 +75,28 @@ namespace AdventOfCodeStartProject
 
 
             Console.WriteLine("Number of Bingo Cards: " + listofboxes.Count);
-            //Console.WriteLine("Number Index: " + winningNumberIndex);
-            //Console.WriteLine("Line: " + winningLine);
-            //Console.ReadKey();
-
-
-
-
-
-
-            //List <string> box = _inputData.Select(x => x.Split(" ").ToList();
-
-
-
-
-
 
 
             Console.WriteLine("Hit any key to close this window...");
             Console.ReadKey();
 
         }
+        private static void checkLines(object karte)
+        {
 
+            for(int i=0; i<nums.Count; i++)
+            {
+                for(int j=0; j < 5; j++)
+                { 
+                if( nums[i]==karte[j, 0])
+                winNumsInLine.Add(nums[i]);
+                if(winNumsInLine.Count==5)
+
+
+                }
+
+            }
+        }
 
 
 
