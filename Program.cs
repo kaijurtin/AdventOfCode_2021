@@ -33,9 +33,9 @@ namespace AdventOfCodeStartProject
             int[,] boxes = new int[arraylength, arraylength];
             List<int[,]> listofboxes = new List<int[,]>();
 
-            int winningNumber = 0;
-            List<int> lineHits = new List<int>();
-            List<WinLine> winningLines = new List<WinLine>();
+            //int winningNumber = 0;
+            //List<int> lineHits = new List<int>();
+            List<BingoCard> allBingoCards = new List<BingoCard>();
             int boxID = 0;
 
             int counterLine = 0;
@@ -72,35 +72,28 @@ namespace AdventOfCodeStartProject
                     BingoCard card = new BingoCard(boxID, boxes);
                 }
             }
+            foreach(BingoCard c in allBingoCards)
+            {
+                c.checkLines(nums);
+            }
+            var winningCard = allBingoCards
+                .OrderBy(x => x.winIndexRow)
+                .FirstOrDefault();
+               
 
-
-            Console.WriteLine("Number of Bingo Cards: " + listofboxes.Count);
-
+            Console.WriteLine("Number of Bingo Cards: " + allBingoCards.Count);
+            Console.WriteLine("Number of the winning card: " + winningCard.id);
+            Console.WriteLine("Last Number for the win: " + winningCard.winningNumber);
+            Console.WriteLine("Last Number Index: " + winningCard.winIndexLine);
 
             Console.WriteLine("Hit any key to close this window...");
             Console.ReadKey();
 
         }
-        private static void checkLines(object karte)
-        {
-
-            for(int i=0; i<nums.Count; i++)
-            {
-                for(int j=0; j < 5; j++)
-                { 
-                if( nums[i]==karte[j, 0])
-                winNumsInLine.Add(nums[i]);
-                if(winNumsInLine.Count==5)
-
-
-                }
-
-            }
-        }
 
 
 
-        private static void readInput()
+        public static void readInput()
             {
                 _inputData = System.IO.File.ReadAllLines("Input.txt").ToList();
             }

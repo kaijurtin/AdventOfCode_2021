@@ -1,55 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class BingoCard
+namespace AdventOfCodeStartProject
 {
-	//public static int id {get;set;}
-	//public static int[,] card { get; set; }
-	public static int winningLine { get; set; }
-	public static int winningRow { get; set; }
-	public static List<int> winNumsInLine { get; set; }
-	public static List<int> winNumsInRow { get; set; }
-	public static int winIndexRow { get; set; }
-	public static int winIndexLine { get; set; }
-	public static int winningNumber { get; set; }
-
-
-	public BingoCard (int id, int[,] card)
+	public class BingoCard
 	{
-		this.id = id;
-		this.card = card;
-		
-	}
+		//public static int id {get;set;}
+		//public static int[,] card { get; set; }
+		public int winningLine { get; set; }
+		public int winningRow { get; set; }
+		public List<int> winNumsInLine { get; set; }
+		public List<int> winNumsInRow { get; set; }
+		public int winIndexRow { get; set; }
+		public int winIndexLine { get; set; }
+		public int winningNumber { get; set; }
+		public int id { get; set; }
+		public int[,] card { get; set; }
 
-	private static void checkLines(List<int> nummern)
-	{
-
-		for (int i = 0; i < nummern.Count; i++)
+		public BingoCard(int id, int[,] card)
 		{
-			for (int j = 0; j < 5; j++)
-			{
-				if (nummern[i] == card[j, 0])
-					winNumsInLine.Add(nums[i]);
-				
-				if (winNumsInLine.Count == 5)
-
-				{	
-					winningNumber = nummern[i]
-					winIndexLine = i;
-					winNumsInLine.Clear(); 
-				}
-
-
-
-				}
+			this.id = id;
+			this.card = card;
 
 		}
-	}
+
+		public void checkLines(List<int> nummern)
+		{
+
+			for (int i = 0; i < nummern.Count; i++)
+			{
+				for (int j = 0; j < 5; j++)
+				{
+					if (nummern[i] == card[j, 0])
+						winNumsInLine.Add(nummern[i]);
+
+					if (winNumsInLine.Count == 5)
+
+					{
+						winningNumber = nummern[i];
+						winIndexLine = i;
+						//winNumsInLine.Clear();
+					}
+				}
+
+			}
+		}
 
 
-	public override string ToString()
-	{
-		return id.ToString() ;
+		public override string ToString()
+		{
+			return id.ToString();
 
+		}
 	}
 }
