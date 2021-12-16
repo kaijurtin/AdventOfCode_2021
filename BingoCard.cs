@@ -21,7 +21,8 @@ namespace AdventOfCodeStartProject
 		{
 			this.id = id;
 			this.card = card;
-
+			winNumsInLine=new List<int>();
+			winNumsInRow=new List<int>();	
 		}
 
 		public void checkLines(List<int> nummern)
@@ -39,7 +40,11 @@ namespace AdventOfCodeStartProject
 					{
 						winningNumber = nummern[i];
 						winIndexLine = i;
-						//winNumsInLine.Clear();
+						winningLine = j;
+						winNumsInLine.Clear();
+                        Console.WriteLine("number: " + winningNumber);
+                        Console.WriteLine("number Index: " + winIndexLine);
+                        Console.WriteLine("line: " + winningLine);
 					}
 				}
 

@@ -13,8 +13,8 @@ namespace AdventOfCodeStartProject
         //each line in the list of strings represents one line in the txt file
         //copy the data you get on the adventofcode website into the txt file and start coding!
         private static List<string> _inputData;
-        private static List<string> numbers = _inputData.First().Split(',').ToList();
-        private static List<int> nums = numbers.ConvertAll(item => int.Parse(item));
+        private static List<string> numbers => _inputData?.First().Split(',').ToList();
+        private static List<int> nums => numbers?.ConvertAll(item => int.Parse(item));
 
         static void Main(string[] args)
         {
@@ -31,7 +31,7 @@ namespace AdventOfCodeStartProject
 
             int arraylength = 5;
             int[,] boxes = new int[arraylength, arraylength];
-            List<int[,]> listofboxes = new List<int[,]>();
+            //List<int[,]> listofboxes = new List<int[,]>();
 
             //int winningNumber = 0;
             //List<int> lineHits = new List<int>();
@@ -68,23 +68,28 @@ namespace AdventOfCodeStartProject
                 {
                     boxID++;
                     counterLine = 0;
-                    listofboxes.Add(boxes);
+                    //listofboxes.Add(boxes);
                     BingoCard card = new BingoCard(boxID, boxes);
+                    allBingoCards.Add(card);
+                    boxes = new int[arraylength, arraylength];
                 }
             }
-            foreach(BingoCard c in allBingoCards)
+            for(int i = 0; i < allBingoCards.Count; i++)
             {
-                c.checkLines(nums);
+                allBingoCards[i].checkLines(nums);
             }
             var winningCard = allBingoCards
-                .OrderBy(x => x.winIndexRow)
-                .FirstOrDefault();
-               
+                .OrderBy(x => x.winIndexLine)
+                .First();
+
+            List<int> vs = new List<int>();
+            var loosingNumbers = winningCard.card
+                .where(x=>!nums.Contains())
 
             Console.WriteLine("Number of Bingo Cards: " + allBingoCards.Count);
             Console.WriteLine("Number of the winning card: " + winningCard.id);
             Console.WriteLine("Last Number for the win: " + winningCard.winningNumber);
-            Console.WriteLine("Last Number Index: " + winningCard.winIndexLine);
+             Console.WriteLine("Last Number Index: " + winningCard.winIndexLine);
 
             Console.WriteLine("Hit any key to close this window...");
             Console.ReadKey();
@@ -93,7 +98,7 @@ namespace AdventOfCodeStartProject
 
 
 
-        public static void readInput()
+        private static void readInput()
             {
                 _inputData = System.IO.File.ReadAllLines("Input.txt").ToList();
             }
