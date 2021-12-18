@@ -77,20 +77,65 @@ namespace AdventOfCodeStartProject
             for(int i = 0; i < allBingoCards.Count; i++)
             {
                 allBingoCards[i].checkLines(nums);
+                allBingoCards[i].checkRows(nums);
             }
-            var winningCard = allBingoCards
-                .OrderBy(x => x.winIndexLine)
-                .First();
+            var winningCardLine = allBingoCards.OrderBy(x=>x.winIndexLine).First();
+            var winningCardRow = allBingoCards.OrderBy(x=>x.winIndexRow).First();
+            BingoCard winningCard = null;
 
-            List<int> vs = new List<int>();
-            var loosingNumbers = winningCard.card
-                .where(x=>!nums.Contains())
+            if(winningCardLine.winIndexLine < winningCardRow.winIndexRow)
+            {
+                winningCard = winningCardLine;
+                winningCard.winIndex = winningCardLine.winIndexLine;
+                winningCard.winningNumber = winningCardLine.winningNumberLine;
+            }
+            else
+            {
+                
+                winningCard = winningCardRow;
+                winningCard.winIndex = winningCardRow.winIndexRow;
+                winningCard.winningNumber = winningCardRow.winningNumberRow;
+            }
+
+
+            List<int> drawnNumbers = new List<int>();
+            List<int> sumNumbers = new List<int>();
+            int sum = 0;
+            int cardSum = 0;
+            int checkSum = 0;
+
+            drawnNumbers = nums.Where(x => nums.IndexOf(x) <= winningCard.winIndex ).ToList();
+            
+            for(int i = 0; i < 5; i++)
+            {
+               for(int j=0; j<5;j++)
+                {
+                    if (!drawnNumbers.Contains(winningCard.card[i, j]))
+                        sumNumbers.Add(winningCard.card[i, j]);
+                }
+                
+            }
+
+            sum = sumNumbers.Sum(x=>x);
+
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    cardSum += winningCard.card[i,j];
+                }
+            }
+            
+                var score = sum*winningCard.winningNumber;
+                
 
             Console.WriteLine("Number of Bingo Cards: " + allBingoCards.Count);
             Console.WriteLine("Number of the winning card: " + winningCard.id);
             Console.WriteLine("Last Number for the win: " + winningCard.winningNumber);
-             Console.WriteLine("Last Number Index: " + winningCard.winIndexLine);
-
+             Console.WriteLine("Last Number Index: " + winningCard.winIndex);
+            Console.WriteLine("Summe: " + sum);
+            Console.WriteLine("score: " + score);
             Console.WriteLine("Hit any key to close this window...");
             Console.ReadKey();
 

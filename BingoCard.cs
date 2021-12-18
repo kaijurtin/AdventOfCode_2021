@@ -13,7 +13,11 @@ namespace AdventOfCodeStartProject
 		public List<int> winNumsInRow { get; set; }
 		public int winIndexRow { get; set; }
 		public int winIndexLine { get; set; }
+		public int winIndex { get; set; }
 		public int winningNumber { get; set; }
+		public int winningNumberLine { get; set; }
+		public int winningNumberRow { get; set; }
+
 		public int id { get; set; }
 		public int[,] card { get; set; }
 
@@ -22,7 +26,9 @@ namespace AdventOfCodeStartProject
 			this.id = id;
 			this.card = card;
 			winNumsInLine=new List<int>();
-			winNumsInRow=new List<int>();	
+			winNumsInRow=new List<int>();
+			winningNumber=0;
+			winIndex=0;
 		}
 
 		public void checkLines(List<int> nummern)
@@ -38,18 +44,44 @@ namespace AdventOfCodeStartProject
 					if (winNumsInLine.Count == 5)
 
 					{
-						winningNumber = nummern[i];
+						winningNumberLine = nummern[i];
 						winIndexLine = i;
 						winningLine = j;
 						winNumsInLine.Clear();
-                        Console.WriteLine("number: " + winningNumber);
-                        Console.WriteLine("number Index: " + winIndexLine);
-                        Console.WriteLine("line: " + winningLine);
+						Console.WriteLine("number: " + winningNumberLine);
+						Console.WriteLine("number Index: " + winIndexLine);
+						Console.WriteLine("line: " + winningLine);
 					}
 				}
 
 			}
 		}
+		public void checkRows(List<int> nummern)
+		{
+
+			for (int i = 0; i < nummern.Count; i++)
+			{
+				for (int j = 0; j < 5; j++)
+				{
+					if (nummern[i] == card[0,j])
+						winNumsInRow.Add(nummern[i]);
+
+					if (winNumsInRow.Count == 5)
+
+					{
+						winningNumberRow = nummern[i];
+						winIndexRow = i;
+						winningRow = j;
+						winNumsInRow.Clear();
+						Console.WriteLine("number: " + winningNumberRow);
+						Console.WriteLine("number Index: " + winIndexRow);
+						Console.WriteLine("line: " + winningRow);
+					}
+				}
+
+			}
+		}
+
 
 
 		public override string ToString()
