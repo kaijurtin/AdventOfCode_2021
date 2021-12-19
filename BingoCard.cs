@@ -5,8 +5,6 @@ namespace AdventOfCodeStartProject
 {
 	public class BingoCard
 	{
-		//public static int id {get;set;}
-		//public static int[,] card { get; set; }
 		public int winningLine { get; set; }
 		public int winningRow { get; set; }
 		public List<int> winNumsInLine { get; set; }
@@ -33,7 +31,6 @@ namespace AdventOfCodeStartProject
 
 		public void checkLines(List<int> nummern)
 		{
-
 			for (int i = 0; i < nummern.Count; i++)
 			{
 				for (int j = 0; j < 5; j++)
@@ -42,23 +39,20 @@ namespace AdventOfCodeStartProject
 						winNumsInLine.Add(nummern[i]);
 
 					if (winNumsInLine.Count == 5)
-
 					{
 						winningNumberLine = nummern[i];
 						winIndexLine = i;
 						winningLine = j;
 						winNumsInLine.Clear();
-						Console.WriteLine("number: " + winningNumberLine);
-						Console.WriteLine("number Index: " + winIndexLine);
-						Console.WriteLine("line: " + winningLine);
+						//Console.WriteLine("number: " + winningNumberLine);
+						//Console.WriteLine("number Index: " + winIndexLine);
+						//Console.WriteLine("line: " + winningLine);
 					}
 				}
-
 			}
 		}
 		public void checkRows(List<int> nummern)
 		{
-
 			for (int i = 0; i < nummern.Count; i++)
 			{
 				for (int j = 0; j < 5; j++)
@@ -67,27 +61,20 @@ namespace AdventOfCodeStartProject
 						winNumsInRow.Add(nummern[i]);
 
 					if (winNumsInRow.Count == 5)
-
 					{
 						winningNumberRow = nummern[i];
 						winIndexRow = i;
 						winningRow = j;
 						winNumsInRow.Clear();
-						Console.WriteLine("number: " + winningNumberRow);
-						Console.WriteLine("number Index: " + winIndexRow);
-						Console.WriteLine("line: " + winningRow);
+						//Console.WriteLine("number: " + winningNumberRow);
+						//Console.WriteLine("number Index: " + winIndexRow);
+						//Console.WriteLine("line: " + winningRow);
 					}
 				}
-
 			}
 		}
 
 
 
-		public override string ToString()
-		{
-			return id.ToString();
-
-		}
 	}
 }
