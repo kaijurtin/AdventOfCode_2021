@@ -59,35 +59,52 @@ namespace AdventOfCodeStartProject
                 allBingoCards[i].checkLines(nums);
                 allBingoCards[i].checkRows(nums);
             }
-            var winningCardLine = allBingoCards.OrderBy(x => x.winIndexLine).FirstOrDefault();
-            var winningCardRow = allBingoCards.OrderBy(x => x.winIndexRow).FirstOrDefault();
-            BingoCard winningCard = null;
+            //var winningCardLine = allBingoCards.OrderBy(x => x.winIndexLine).FirstOrDefault();
+            //var winningCardRow = allBingoCards.OrderBy(x => x.winIndexRow).FirstOrDefault();
+            //BingoCard winningCard = null;
 
-            if (winningCardLine.winIndexLine < winningCardRow.winIndexRow)
+            //if (winningCardLine.winIndexLine < winningCardRow.winIndexRow)
+            //{
+            //    winningCard = winningCardLine;
+            //    winningCard.winIndex = winningCardLine.winIndexLine;
+            //    winningCard.winningNumber = nums[winningCard.winIndex];
+            //}
+            //else
+            //{
+            //    winningCard = winningCardRow;
+            //    winningCard.winIndex = winningCardRow.winIndexRow;
+            //    winningCard.winningNumber = nums[winningCard.winIndex];
+            //}
+            var loosingCardLine = allBingoCards.OrderByDescending(x => x.winIndexLine).FirstOrDefault();
+            var loosingCardRow = allBingoCards.OrderByDescending(x => x.winIndexRow).FirstOrDefault();
+            BingoCard loosingCard = null;
+
+            if (loosingCardLine.winIndexLine == loosingCardRow.winIndexRow)
             {
-                winningCard = winningCardLine;
-                winningCard.winIndex = winningCardLine.winIndexLine;
-                winningCard.winningNumber = nums[winningCard.winIndex];
+                loosingCard = loosingCardLine;
+                loosingCard.winIndex = loosingCardLine.winIndexLine;
+                loosingCard.winningNumber = nums[loosingCard.winIndex];
             }
             else
             {
-                winningCard = winningCardRow;
-                winningCard.winIndex = winningCardRow.winIndexRow;
-                winningCard.winningNumber = nums[winningCard.winIndex];
+                loosingCard = loosingCardRow;
+                loosingCard.winIndex = loosingCardRow.winIndexRow;
+                loosingCard.winningNumber = nums[loosingCard.winIndex];
             }
+
 
             //calculate score
             List<int> drawnNumbers = new List<int>();
             List<int> sumNumbers = new List<int>();
 
-            drawnNumbers = nums.Where(x => nums.IndexOf(x) <= winningCard.winIndex).ToList();
+            drawnNumbers = nums.Where(x => nums.IndexOf(x) <= loosingCard.winIndex).ToList();
 
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    if (!drawnNumbers.Contains(winningCard.card[i, j]))
-                        sumNumbers.Add(winningCard.card[i, j]);
+                    if (!drawnNumbers.Contains(loosingCard.card[i, j]))
+                        sumNumbers.Add(loosingCard.card[i, j]);
                 }
             }
 
@@ -95,13 +112,13 @@ namespace AdventOfCodeStartProject
             
             int sum = sumNumbers.Sum(x => x);
 
-            var score = sum * winningCard.winningNumber;
+            var score = sum * loosingCard.winningNumber;
 
 
             Console.WriteLine("Number of Bingo Cards: " + allBingoCards.Count);
-            Console.WriteLine("Number of the winning card: " + winningCard.id);
-            Console.WriteLine("Last Number for the win: " + winningCard.winningNumber);
-            Console.WriteLine("Last Number Index: " + winningCard.winIndex);
+            Console.WriteLine("Number of the winning card: " + loosingCard.id);
+            Console.WriteLine("Last Number for the win: " + loosingCard.winningNumber);
+            Console.WriteLine("Last Number Index: " + loosingCard.winIndex);
             Console.WriteLine("Summe: " + sum);
             Console.WriteLine("score: " + score);
             Console.WriteLine("Hit any key to close this window...");
