@@ -15,6 +15,7 @@ namespace AdventOfCodeStartProject
 		public int winningNumber { get; set; }
 		public int winningNumberLine { get; set; }
 		public int winningNumberRow { get; set; }
+		public bool isBingo { get; set; } = false;
 
 		public int id { get; set; }
 		public int[,] card { get; set; }
@@ -27,6 +28,7 @@ namespace AdventOfCodeStartProject
 			winNumsInRow=new List<int>();
 			winningNumber=0;
 			winIndex=0;
+
 		}
 
 		public void checkLines(List<int> nummern)
@@ -40,6 +42,7 @@ namespace AdventOfCodeStartProject
 
 					if (winNumsInLine.Count == 5)
 					{
+						isBingo = true;
 						winningNumberLine = nummern[i];
 						winIndexLine = i;
 						winningLine = j;
@@ -62,6 +65,7 @@ namespace AdventOfCodeStartProject
 
 					if (winNumsInRow.Count == 5)
 					{
+						isBingo=true;
 						winningNumberRow = nummern[i];
 						winIndexRow = i;
 						winningRow = j;

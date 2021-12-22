@@ -59,10 +59,10 @@ namespace AdventOfCodeStartProject
                 allBingoCards[i].checkLines(nums);
                 allBingoCards[i].checkRows(nums);
             }
-            var winningCardLine = allBingoCards.OrderBy(x => x.winIndexLine).FirstOrDefault();
-            var winningCardRow = allBingoCards.OrderBy(x => x.winIndexRow).FirstOrDefault();
+            var winningCardLine = allBingoCards.Where(x=>x.isBingo).OrderBy(x => x.winIndexLine).FirstOrDefault();
+            var winningCardRow = allBingoCards.Where(x => x.isBingo).OrderBy(x => x.winIndexRow).FirstOrDefault();
             BingoCard winningCard = null;
-
+            Console.WriteLine(allBingoCards.Where(x => x.isBingo).Count());
             if (winningCardLine.winIndexLine < winningCardRow.winIndexRow)
             {
                 winningCard = winningCardLine;
