@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AdventOfCodeStartProject
 {
@@ -9,6 +10,8 @@ namespace AdventOfCodeStartProject
 		public int winningRow { get; set; }
 		public List<int> winNumsInLine { get; set; }
 		public List<int> winNumsInRow { get; set; }
+		//public List<int> winIndexesLine { get; set; }
+
 		public int winIndexRow { get; set; }
 		public int winIndexLine { get; set; }
 		public int winIndex { get; set; }
@@ -26,6 +29,7 @@ namespace AdventOfCodeStartProject
 			this.card = card;
 			winNumsInLine=new List<int>();
 			winNumsInRow=new List<int>();
+			//winIndexesLine=new List<int>();
 			winningNumber=0;
 			winIndex=0;
 
@@ -33,48 +37,61 @@ namespace AdventOfCodeStartProject
 
 		public void checkLines(List<int> nummern)
 		{
-			for (int i = 0; i < nummern.Count; i++)
-			{
-				for (int j = 0; j < 5; j++)
-				{
-					if (nummern[i] == card[j, 0])
-						winNumsInLine.Add(nummern[i]);
+			List <int> winIndexesLine = new List<int>();
+			int counter=0;	
 
-					if (winNumsInLine.Count == 5)
+			for (int k = 0; k < 5; k++)
+			{ 
+				for (int i = 0; i < nummern.Count; i++)
+				
+				{
+					for (int j = 0; j < 5; j++)
 					{
-						isBingo = true;
-						winningNumberLine = nummern[i];
-						winIndexLine = i;
-						winningLine = j;
-						winNumsInLine.Clear();
-						//Console.WriteLine("number: " + winningNumberLine);
-						//Console.WriteLine("number Index: " + winIndexLine);
-						//Console.WriteLine("line: " + winningLine);
+						if (nummern[i] == card[j, k])
+						{
+							counter++;
+						}
+						if (counter == 5)
+						{
+							winIndexesLine.Add(i);
+							counter = 0;
+							//k++;
+						}
 					}
+
 				}
-			}
+                winIndexLine = winIndexesLine.OrderBy(x => x).First();
+            }
 		}
+			
+			
+		
 		public void checkRows(List<int> nummern)
 		{
-			for (int i = 0; i < nummern.Count; i++)
-			{
-				for (int j = 0; j < 5; j++)
-				{
-					if (nummern[i] == card[0,j])
-						winNumsInRow.Add(nummern[i]);
+			List<int> winIndexesRow = new List<int>();
+			int counter = 0;
 
-					if (winNumsInRow.Count == 5)
+			for (int k = 0; k < 5; k++)
+			{
+				for (int i = 0; i < nummern.Count; i++)
+
+				{
+					for (int j = 0; j < 5; j++)
 					{
-						isBingo=true;
-						winningNumberRow = nummern[i];
-						winIndexRow = i;
-						winningRow = j;
-						winNumsInRow.Clear();
-						//Console.WriteLine("number: " + winningNumberRow);
-						//Console.WriteLine("number Index: " + winIndexRow);
-						//Console.WriteLine("line: " + winningRow);
+						if (nummern[i] == card[k, j])
+						{
+							counter++;
+						}
+						if (counter == 5)
+						{
+							winIndexesRow.Add(i);
+							counter = 0;
+							//k++;
+						}
 					}
+
 				}
+				winIndexRow = winIndexesRow.OrderBy(x => x).First();
 			}
 		}
 

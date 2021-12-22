@@ -59,21 +59,21 @@ namespace AdventOfCodeStartProject
                 allBingoCards[i].checkLines(nums);
                 allBingoCards[i].checkRows(nums);
             }
-            var winningCardLine = allBingoCards.Where(x=>x.isBingo).OrderBy(x => x.winIndexLine).FirstOrDefault();
-            var winningCardRow = allBingoCards.Where(x => x.isBingo).OrderBy(x => x.winIndexRow).FirstOrDefault();
+            var winningCardLine = allBingoCards.OrderBy(x => x.winIndexLine).FirstOrDefault();
+            var winningCardRow = allBingoCards.OrderBy(x => x.winIndexRow).FirstOrDefault();
             BingoCard winningCard = null;
-            Console.WriteLine(allBingoCards.Where(x => x.isBingo).Count());
+
             if (winningCardLine.winIndexLine < winningCardRow.winIndexRow)
             {
                 winningCard = winningCardLine;
                 winningCard.winIndex = winningCardLine.winIndexLine;
-                winningCard.winningNumber = winningCardLine.winningNumberLine;
+                winningCard.winningNumber = nums[winningCard.winIndex];
             }
             else
             {
                 winningCard = winningCardRow;
                 winningCard.winIndex = winningCardRow.winIndexRow;
-                winningCard.winningNumber = winningCardRow.winningNumberRow;
+                winningCard.winningNumber = nums[winningCard.winIndex];
             }
 
             //calculate score
@@ -91,6 +91,8 @@ namespace AdventOfCodeStartProject
                 }
             }
 
+            
+            
             int sum = sumNumbers.Sum(x => x);
 
             var score = sum * winningCard.winningNumber;
