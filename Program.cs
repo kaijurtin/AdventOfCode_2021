@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-
+using System.Windows.Shapes;
 
 namespace AdventOfCodeStartProject
 {
@@ -22,26 +23,39 @@ namespace AdventOfCodeStartProject
             //var intlist = _inputData.Select(i => int.Parse(i)).ToList();
             //lets write the contents of the input.txt into the console
 
-            //Console.WriteLine("Content of input.txt:");
-            //_inputData.ForEach(i => Console.WriteLine(i));
-            //Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
-            List<int> _inputDataINT = _inputData.ConvertAll(item => int.Parse(item));
+            Console.WriteLine("Content of input.txt:");
+            _inputData.ForEach(i => Console.WriteLine(i));
+            Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
 
-            int countIncrease = 0;
-
-            for (int i = 0; i < _inputDataINT.Count-1; i++)
+            Dictionary<Point, Point> lines = new Dictionary<Point, Point>();
+            
+            for (int i = 0; i < _inputData.Count; i++)
             {
-                if (_inputDataINT[i+1] > _inputDataINT[i])
-                countIncrease++;
+                var points = _inputData[i].Split(' ').ToList();
+                Point start = new Point();
+                start.X = int.Parse(points[0].Split(',')[0]);
+                start.Y = int.Parse(points[0].Split(',')[1]);
+                Point end = new Point();
+                end.X = int.Parse(points[2].Split(',')[0]);
+                end.Y = int.Parse(points[2].Split(',')[1]);
+
+                lines.Add(start, end);
+                //Line line = new Line();
+                //line.X1 = int.Parse(points[0].Split(',')[0]);
+                //line.Y1 = int.Parse(points[0].Split(',')[1]);
+                //line.X2 = int.Parse(points[2].Split(',')[0]);
+                //line.Y2 = int.Parse(points[2].Split(',')[1]);
+            }
+        
+            foreach(var line in lines)
+            {
+                Console.WriteLine(line);
+            }
 
 
-                //Console.ReadKey();
 
-            }                
-                Console.WriteLine("Increased Depth: " + countIncrease);
-
-                //keep console open
-                Console.WriteLine("Hit any key to close this window...");
+            //keep console open
+            Console.WriteLine("Hit any key to close this window...");
                 Console.ReadKey();
             
         }
