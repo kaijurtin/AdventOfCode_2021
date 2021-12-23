@@ -58,6 +58,11 @@ namespace AdventOfCodeStartProject
             {
                 allBingoCards[i].checkLines(nums);
                 allBingoCards[i].checkRows(nums);
+                if (allBingoCards[i].winIndexLine < allBingoCards[i].winIndexRow)
+                    allBingoCards[i].winIndex = allBingoCards[i].winIndexLine;
+                else
+                    allBingoCards[i].winIndex = allBingoCards[i].winIndexRow;
+                allBingoCards[i].winningNumber = nums[allBingoCards[i].winIndex];
             }
             //var winningCardLine = allBingoCards.OrderBy(x => x.winIndexLine).FirstOrDefault();
             //var winningCardRow = allBingoCards.OrderBy(x => x.winIndexRow).FirstOrDefault();
@@ -75,36 +80,25 @@ namespace AdventOfCodeStartProject
             //    winningCard.winIndex = winningCardRow.winIndexRow;
             //    winningCard.winningNumber = nums[winningCard.winIndex];
             //}
-            var loosingCardLine = allBingoCards.OrderByDescending(x => x.winIndexLine).FirstOrDefault();
-            var loosingCardRow = allBingoCards.OrderByDescending(x => x.winIndexRow).FirstOrDefault();
-            BingoCard loosingCard = null;
 
-            if (loosingCardLine.winIndexLine == loosingCardRow.winIndexRow)
-            {
-                loosingCard = loosingCardLine;
-                loosingCard.winIndex = loosingCardLine.winIndexLine;
-                loosingCard.winningNumber = nums[loosingCard.winIndex];
-            }
-            else
-            {
-                loosingCard = loosingCardRow;
-                loosingCard.winIndex = loosingCardRow.winIndexRow;
-                loosingCard.winningNumber = nums[loosingCard.winIndex];
-            }
+
 
 
             //calculate score
             List<int> drawnNumbers = new List<int>();
             List<int> sumNumbers = new List<int>();
+            
+            
+            var lastWinningCard = allBingoCards.OrderByDescending(x => x.winIndex).First();
 
-            drawnNumbers = nums.Where(x => nums.IndexOf(x) <= loosingCard.winIndex).ToList();
+            drawnNumbers = nums.Where(x => nums.IndexOf(x) <= lastWinningCard.winIndex).ToList();
 
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    if (!drawnNumbers.Contains(loosingCard.card[i, j]))
-                        sumNumbers.Add(loosingCard.card[i, j]);
+                    if (!drawnNumbers.Contains(lastWinningCard.card[i, j]))
+                        sumNumbers.Add(lastWinningCard.card[i, j]);
                 }
             }
 
@@ -112,7 +106,7 @@ namespace AdventOfCodeStartProject
             
             int sum = sumNumbers.Sum(x => x);
 
-            var score = sum * loosingCard.winningNumber;
+            var score = sum * lastWinningCard.winningNumber;
 
 
             Console.WriteLine("Number of Bingo Cards: " + allBingoCards.Count);

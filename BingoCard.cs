@@ -55,7 +55,7 @@ namespace AdventOfCodeStartProject
 						{
 							winIndexesLine.Add(i);
 							counter = 0;
-							//k++;
+							isBingo=true;
 						}
 					}
 
@@ -86,7 +86,7 @@ namespace AdventOfCodeStartProject
 						{
 							winIndexesRow.Add(i);
 							counter = 0;
-							//k++;
+							isBingo=true;
 						}
 					}
 
