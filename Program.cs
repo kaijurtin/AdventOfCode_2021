@@ -27,9 +27,9 @@ namespace AdventOfCodeStartProject
             _inputData.ForEach(i => Console.WriteLine(i));
             Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
 
-            Dictionary<Point, Point> lines = new Dictionary<Point, Point>();
+            //Dictionary<Point, Point> lines = new Dictionary<Point, Point>();
             List<Point> allPoints = new List<Point>();
-
+            int counter = 0;    
             for (int i = 0; i < _inputData.Count; i++)
             {
                 var points = _inputData[i].Split(' ').ToList();
@@ -43,25 +43,29 @@ namespace AdventOfCodeStartProject
                 Console.WriteLine(start.X + "/" + start.Y);
                 Console.WriteLine(end.X + "/" + end.Y);
 
-                //lines.Add(start, end);
-                //Line line = new Line();
-                //line.X1 = int.Parse(points[0].Split(',')[0]);
-                //line.Y1 = int.Parse(points[0].Split(',')[1]);
-                //line.X2 = int.Parse(points[2].Split(',')[0]);
-                //line.Y2 = int.Parse(points[2].Split(',')[1]);
+                int minX = Math.Min(start.X, end.X);
+                int minY = Math.Min(start.Y, end.Y);
+                int maxX = Math.Max(start.X, end.X);
+                int maxY = Math.Max(start.Y,end.Y);
+
 
                 if (start.X == end.X) //line is vertical
                 {
-                    for (int j = Math.Min(start.Y, end.Y); j <= Math.Abs(start.Y - end.Y); j++)
-                    {
+                    for (int j = minY; j <= maxY-minY; j++)
+                    {   
                         allPoints.Add(new Point(start.X, j));
+                        if (allPoints.Contains(new Point(start.X, j)))
+                            counter++;
                     }
                 }
                 if (start.Y == end.Y) //line is horizontal
                 { 
-                    for (int j = Math.Min(start.X, end.X); j <= Math.Abs(start.X - end.X); j++)
+                    for (int j = minX ; j <= maxX-minX; j++)
                     {
                         allPoints.Add(new Point(j, start.Y));
+                        if (allPoints.Contains(new Point(start.X, j)))
+                            counter++;
+
                     }
                 }
             }
@@ -70,7 +74,7 @@ namespace AdventOfCodeStartProject
             {
                 Console.WriteLine(p);
             }
-
+            Console.WriteLine("Counter     "  + counter );
 
 
             //keep console open
