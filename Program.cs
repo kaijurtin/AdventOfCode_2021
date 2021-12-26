@@ -28,7 +28,8 @@ namespace AdventOfCodeStartProject
             Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
 
             Dictionary<Point, Point> lines = new Dictionary<Point, Point>();
-            
+            List<Point> allPoints = new List<Point>();
+
             for (int i = 0; i < _inputData.Count; i++)
             {
                 var points = _inputData[i].Split(' ').ToList();
@@ -39,17 +40,35 @@ namespace AdventOfCodeStartProject
                 end.X = int.Parse(points[2].Split(',')[0]);
                 end.Y = int.Parse(points[2].Split(',')[1]);
 
-                lines.Add(start, end);
+                Console.WriteLine(start.X + "/" + start.Y);
+                Console.WriteLine(end.X + "/" + end.Y);
+
+                //lines.Add(start, end);
                 //Line line = new Line();
                 //line.X1 = int.Parse(points[0].Split(',')[0]);
                 //line.Y1 = int.Parse(points[0].Split(',')[1]);
                 //line.X2 = int.Parse(points[2].Split(',')[0]);
                 //line.Y2 = int.Parse(points[2].Split(',')[1]);
+
+                if (start.X == end.X) //line is vertical
+                {
+                    for (int j = Math.Min(start.Y, end.Y); j <= Math.Abs(start.Y - end.Y); j++)
+                    {
+                        allPoints.Add(new Point(start.X, j));
+                    }
+                }
+                if (start.Y == end.Y) //line is horizontal
+                { 
+                    for (int j = Math.Min(start.X, end.X); j <= Math.Abs(start.X - end.X); j++)
+                    {
+                        allPoints.Add(new Point(j, start.Y));
+                    }
+                }
             }
         
-            foreach(var line in lines)
+            foreach(Point p in allPoints)
             {
-                Console.WriteLine(line);
+                Console.WriteLine(p);
             }
 
 
