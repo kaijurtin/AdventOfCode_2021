@@ -23,13 +23,14 @@ namespace AdventOfCodeStartProject
             //var intlist = _inputData.Select(i => int.Parse(i)).ToList();
             //lets write the contents of the input.txt into the console
 
-            Console.WriteLine("Content of input.txt:");
-            _inputData.ForEach(i => Console.WriteLine(i));
-            Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
+            //Console.WriteLine("Content of input.txt:");
+            //_inputData.ForEach(i => Console.WriteLine(i));
+            //Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
 
             //Dictionary<Point, Point> lines = new Dictionary<Point, Point>();
             List<Point> allPoints = new List<Point>();
-            int counter = 0;    
+            List<Point> doublePoints = new List<Point>();
+            int counter = 0;
             for (int i = 0; i < _inputData.Count; i++)
             {
                 var points = _inputData[i].Split(' ').ToList();
@@ -40,48 +41,69 @@ namespace AdventOfCodeStartProject
                 end.X = int.Parse(points[2].Split(',')[0]);
                 end.Y = int.Parse(points[2].Split(',')[1]);
 
-                Console.WriteLine(start.X + "/" + start.Y);
-                Console.WriteLine(end.X + "/" + end.Y);
+                //Console.WriteLine(start.X + "/" + start.Y);
+                //Console.WriteLine(end.X + "/" + end.Y);
 
                 int minX = Math.Min(start.X, end.X);
                 int minY = Math.Min(start.Y, end.Y);
                 int maxX = Math.Max(start.X, end.X);
-                int maxY = Math.Max(start.Y,end.Y);
+                int maxY = Math.Max(start.Y, end.Y);
 
 
                 if (start.X == end.X) //line is vertical
                 {
-                    for (int j = minY; j <= maxY-minY; j++)
-                    {   
-                        allPoints.Add(new Point(start.X, j));
+                    for (int j = minY; j <= maxY; j++)
+                    {
                         if (allPoints.Contains(new Point(start.X, j)))
-                            counter++;
+                        {
+                            if (!doublePoints.Contains(new Point(start.X, j)))
+                            {
+                                counter++;
+                                doublePoints.Add(new Point(start.X, j));
+                            }
+                        }
+                        else
+                            allPoints.Add(new Point(start.X, j));
                     }
                 }
                 if (start.Y == end.Y) //line is horizontal
-                { 
-                    for (int j = minX ; j <= maxX-minX; j++)
+                {
+                    for (int j = minX; j <= maxX; j++)
                     {
-                        allPoints.Add(new Point(j, start.Y));
-                        if (allPoints.Contains(new Point(start.X, j)))
-                            counter++;
-
+                        if (allPoints.Contains(new Point(j, start.Y)))
+                        {
+                            if (!doublePoints.Contains(new Point(j, start.Y)))
+                            {
+                                counter++;
+                                doublePoints.Add(new Point(j, start.Y));
+                            }
+                        }
+                        else
+                            allPoints.Add(new Point(j, start.Y));
                     }
                 }
-            }
-        
-            foreach(Point p in allPoints)
-            {
-                Console.WriteLine(p);
-            }
-            Console.WriteLine("Counter     "  + counter );
 
+            }
+
+
+            //var singles = allPoints.Distinct();
+            //int numberOfSingles = singles.Count();
+
+            //var numberOfDoubles = allPoints.Count() - numberOfSingles;
+
+
+            Console.WriteLine("Counter     " + counter);
+            //Console.WriteLine("Counter 2   " + numberOfDoubles);
 
             //keep console open
             Console.WriteLine("Hit any key to close this window...");
-                Console.ReadKey();
-            
+            Console.ReadKey();
+
         }
+
+
+
+
         private static void readInput()
         {
             _inputData = System.IO.File.ReadAllLines("Input.txt").ToList();
