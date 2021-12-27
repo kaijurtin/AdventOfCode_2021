@@ -12,6 +12,7 @@ namespace AdventOfCodeStartProject
         //each line in the list of strings represents one line in the txt file
         //copy the data you get on the adventofcode website into the txt file and start coding!
         private static List<string> _inputData;
+        //public static List<int> fish = new List<int>();
 
         static void Main(string[] args)
         {
@@ -20,26 +21,52 @@ namespace AdventOfCodeStartProject
 
             //read data from input.txt and write it into inputdata field
             readInput();
-            var intlist = _inputData.Select(i => int.Parse(i)).ToList();
+            //var input = _inputData.Select(i => int.Parse(i)).ToList();
             //lets write the contents of the input.txt into the console
 
             Console.WriteLine("Content of input.txt:");
             _inputData.ForEach(i => Console.WriteLine(i));
             Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
 
+            var fish = _inputData[0].Split(',')
+                .Select(f=>int.Parse(f))
+                .ToList();
 
-            for (int i = 0; i <= 80; i++)
+            int countNew = 0;
+            int numberOfDays = 256;
+
+            for (int i = 0; i <numberOfDays+1; i++)
             {
-                foreach (int num in _inputData[i])
+                for (int j = 0; j < countNew; j++)
                 {
-                if (num != 0)
+                    fish.Add(8);
+                }
+                countNew = 0;
+                //foreach (var f in fish)
+                //{
+                //    Console.Write(f + ", ");
+                //}
+                //Console.Write(Environment.NewLine);
+
+                for (int f = 0; f < fish.Count; f++)
+                {
+                    if (fish[f] != 0 )
+                        fish[f] = fish[f] - 1;
+                    else
                     {
-                        num--;
+                        fish[f] = 6;
+                        
+                        countNew ++; 
                     }
                 }
+                
             }
+            //for (int k = 0; k < fish.Count; k++)
+            //{
+            //    Console.Write(fish[k] + ", ");
+            //}
 
-
+            Console.WriteLine(fish.Count   );
 
 
 
