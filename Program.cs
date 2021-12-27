@@ -34,42 +34,59 @@ namespace AdventOfCodeStartProject
 
             int countNew = 0;
             int numberOfDays = 256;
+            #region solution day 1
+            /*solution day 1
+             for (int i = 0; i <numberOfDays+1; i++)
+             {
+                 for (int j = 0; j < countNew; j++)
+                 {
+                     fish.Add(8);
+                 }
+                 countNew = 0;
+                 //foreach (var f in fish)
+                 //{
+                 //    Console.Write(f + ", ");
+                 //}
+                 //Console.Write(Environment.NewLine);
 
-            for (int i = 0; i <numberOfDays+1; i++)
-            {
-                for (int j = 0; j < countNew; j++)
-                {
-                    fish.Add(8);
-                }
-                countNew = 0;
-                //foreach (var f in fish)
-                //{
-                //    Console.Write(f + ", ");
-                //}
-                //Console.Write(Environment.NewLine);
+                 for (int f = 0; f < fish.Count; f++)
+                 {
+                     if (fish[f] != 0 )
+                         fish[f] = fish[f] - 1;
+                     else
+                     {
+                         fish[f] = 6;
 
-                for (int f = 0; f < fish.Count; f++)
-                {
-                    if (fish[f] != 0 )
-                        fish[f] = fish[f] - 1;
-                    else
-                    {
-                        fish[f] = 6;
-                        
-                        countNew ++; 
-                    }
-                }
-                
-            }
-            //for (int k = 0; k < fish.Count; k++)
+                         countNew ++; 
+                     }
+                 }
+
+             }
+             //for (int k = 0; k < fish.Count; k++)
+             //{
+             //    Console.Write(fish[k] + ", ");
+             //}
+
+             Console.WriteLine(fish.Count   );
+            */
+            #endregion
+
+            //var generations = (numberOfDays - fish[0] - 1) / 6;
+            //var childGenerations = (generations - fish[1] -3) / 6;
+
+            //for (int i = 0; i < fish.Count; i++)
             //{
-            //    Console.Write(fish[k] + ", ");
+
             //}
-
-            Console.WriteLine(fish.Count   );
-
-
-
+            long f(int n, int d) => (d - n - 0 > 0 ? 1 + f(6, d - n - 1) + f(8, d - n - 1) : 0);
+            var Solve = (int d) => _inputData
+                                     .SelectMany(l => l.Split(',')
+                                                       .Select(Int32.Parse)
+                                                       .ToList())
+                                     .GroupBy(i => i)
+                                     .Select(g => g.Count() * (1 + f(g.Key, d)))
+                                     .Sum();
+            var (part1, part2) = (Solve(80), Solve(256));
 
             //keep console open
             Console.WriteLine("Hit any key to close this window...");
