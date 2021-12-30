@@ -28,55 +28,17 @@ namespace AdventOfCodeStartProject
             Console.WriteLine("Content of input.txt:");
             _inputData.ForEach(i => Console.WriteLine(i));
             Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
-
-            var crabs = _inputData[0].Split(',')
-                .Select(f=>int.Parse(f))
+            List<string> showItems = new List<string>();
+            var digits = _inputData[0].Split('|', (char)StringSplitOptions.RemoveEmptyEntries)
+                .Select(f => f.ToString()
+                    .Split(' ', (char)StringSplitOptions.RemoveEmptyEntries))
                 .ToList();
 
-            //var middle = (crabs.Max()-crabs.Min()) / 2;
-            //Console.WriteLine("Middle; " + middle);
+            var one = digits[0].Where(i => i.Length == 2);
+            var seven = digits.Where(i => i.Length == 3);
+            var four = digits.Where(i => i.Length == 4);
 
-            //var mean = crabs.Average();
-            //Console.WriteLine("Mean: " + mean);
-
-
-            //var median = 0;
-            //var crabsCount = crabs.Count();
-            //var crabsOrdered = crabs.OrderBy(f => f).ToList();
-            //if ((crabsCount / 2) % 2 == 0)
-            //    median = (((crabsOrdered.ElementAt(crabsCount / 2)) + crabsOrdered.ElementAt((crabsCount / 2) - 1)) / 2);
-            //else median = crabsOrdered.ElementAt(crabsCount / 2);
-
-            //Console.WriteLine("Median: " + median);
-
-            var range = Enumerable.Range(crabs.Min(), crabs.Max()-crabs.Min()+1);
-            int singleCost(int c) => (c * (c + 1)) / 2;
-            int singleSteps(int a, int b) => Math.Abs(a - b);
-
-            var sol2 = range.Min(x => crabs.Sum(n => singleCost(singleSteps(n, x))));
-            Console.WriteLine(sol2);
-
-
-            //int fuelCosts = 0;
-            //int singleCosts = 0;
-            //int singleCosts_gauss = 0;
-            //int fuelCosts_2 = 0;
-
-            //for (int i = 0; i < crabs.Count; i++)
-            //{
-            //    int singleStep = Math.Abs(crabs[i] - median);
-            //    singleCosts = ((singleStep * singleStep) + singleStep) / 2;
-            //    singleCosts_gauss = (singleStep*(singleStep + 1)) / 2;
-            //    fuelCosts += singleCosts;
-            //    fuelCosts_2 += singleCosts_gauss;
-
-            //    //Console.WriteLine("Single Costs: " + singleCosts);
-            //    //Console.WriteLine("Single Costs Gauss: " + singleCosts_gauss);
-            //}
-
-            //Console.WriteLine(fuelCosts);
-            //Console.WriteLine(fuelCosts_2);
-        
+            //showItems.Add(code);
 
             //keep console open
             Console.WriteLine("Hit any key to close this window...");
