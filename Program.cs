@@ -29,82 +29,53 @@ namespace AdventOfCodeStartProject
             _inputData.ForEach(i => Console.WriteLine(i));
             Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
 
-            var fish = _inputData[0].Split(',')
+            var crabs = _inputData[0].Split(',')
                 .Select(f=>int.Parse(f))
                 .ToList();
 
-            BigInteger countNew = 0;
-            int numberOfDays = 256;
-            #region solution day 1
-          
-             //for (int i = 0; i <numberOfDays+1; i++)
-             //{
-             //    for (int j = 0; j < countNew; j++)
-             //    {
-             //        fish.Add(8);
-             //    }
-             //    countNew = 0;
-             //    //foreach (var f in fish)
-             //    //{
-             //    //    Console.Write(f + ", ");
-             //    //}
-             //    //Console.Write(Environment.NewLine);
+            //var middle = (crabs.Max()-crabs.Min()) / 2;
+            //Console.WriteLine("Middle; " + middle);
 
-             //    for (int f = 0; f < fish.Count; f++)
-             //    {
-             //        if (fish[f] != 0 )
-             //            fish[f] = fish[f] - 1;
-             //        else
-             //        {
-             //            fish[f] = 6;
-
-             //            countNew ++; 
-             //        }
-             //    }
-
-             //}
-             //for (int k = 0; k < fish.Count; k++)
-             //{
-             //    Console.Write(fish[k] + ", ");
-             //}
-
-             //Console.WriteLine(fish.Count   );
-            
-            #endregion
+            //var mean = crabs.Average();
+            //Console.WriteLine("Mean: " + mean);
 
 
-            BigInteger[] fishdata = new BigInteger[9];
-            
+            //var median = 0;
+            //var crabsCount = crabs.Count();
+            //var crabsOrdered = crabs.OrderBy(f => f).ToList();
+            //if ((crabsCount / 2) % 2 == 0)
+            //    median = (((crabsOrdered.ElementAt(crabsCount / 2)) + crabsOrdered.ElementAt((crabsCount / 2) - 1)) / 2);
+            //else median = crabsOrdered.ElementAt(crabsCount / 2);
 
-            foreach (int i in fish)
-            {
-                fishdata[i] ++ ;
-            }
+            //Console.WriteLine("Median: " + median);
 
-            for (int n = 0; n < numberOfDays; n++)
-            {
-                BigInteger newfish = fishdata[0];
-                fishdata[0] = fishdata[1];
-                fishdata[1] = fishdata[2];
-                fishdata[2] = fishdata[3];
-                fishdata[3] = fishdata[4];
-                fishdata[4] = fishdata[5];
-                fishdata[5] = fishdata[6];
-                fishdata[6] = fishdata[7];
-                fishdata[7] = fishdata[8];
-                fishdata[8] = newfish;
-                fishdata[6] += newfish;
-            }
+            var range = Enumerable.Range(crabs.Min(), crabs.Max()-crabs.Min()+1);
+            int singleCost(int c) => (c * (c + 1)) / 2;
+            int singleSteps(int a, int b) => Math.Abs(a - b);
 
-            BigInteger total = 0;
-
-            foreach (BigInteger n in fishdata)
-                total += n;
-
-            Console.WriteLine(total);
-        
+            var sol2 = range.Min(x => crabs.Sum(n => singleCost(singleSteps(n, x))));
+            Console.WriteLine(sol2);
 
 
+            //int fuelCosts = 0;
+            //int singleCosts = 0;
+            //int singleCosts_gauss = 0;
+            //int fuelCosts_2 = 0;
+
+            //for (int i = 0; i < crabs.Count; i++)
+            //{
+            //    int singleStep = Math.Abs(crabs[i] - median);
+            //    singleCosts = ((singleStep * singleStep) + singleStep) / 2;
+            //    singleCosts_gauss = (singleStep*(singleStep + 1)) / 2;
+            //    fuelCosts += singleCosts;
+            //    fuelCosts_2 += singleCosts_gauss;
+
+            //    //Console.WriteLine("Single Costs: " + singleCosts);
+            //    //Console.WriteLine("Single Costs Gauss: " + singleCosts_gauss);
+            //}
+
+            //Console.WriteLine(fuelCosts);
+            //Console.WriteLine(fuelCosts_2);
         
 
             //keep console open
