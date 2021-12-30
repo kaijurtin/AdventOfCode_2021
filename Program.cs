@@ -34,7 +34,7 @@ namespace AdventOfCodeStartProject
                 .ToList();
 
             BigInteger countNew = 0;
-            int numberOfDays = 80;
+            int numberOfDays = 256;
             #region solution day 1
           
              //for (int i = 0; i <numberOfDays+1; i++)
@@ -73,56 +73,40 @@ namespace AdventOfCodeStartProject
             #endregion
 
 
-            Dictionary<int, BigInteger> fishTable = new Dictionary<int, BigInteger>();
-            fishTable.Add(0, 0);
-            fishTable.Add(1, 0); 
-            fishTable.Add(2, 0);
-            fishTable.Add(3, 0);
-            fishTable.Add(4, 0);
-            fishTable.Add(5, 0);
-            fishTable.Add(6, 0);
-            fishTable.Add(7, 0);
-            fishTable.Add(8, 0);
+            BigInteger[] fishdata = new BigInteger[9];
+            
 
-            for (int i = 0; i < fish.Count; i++)
+            foreach (int i in fish)
             {
-                if (fishTable.ContainsKey(fish[i]))
-                    fishTable[fish[i]] += 1 ;
+                fishdata[i] ++ ;
             }
-            foreach(KeyValuePair<int, BigInteger> kvp in fishTable)
-                Console.WriteLine("days old: {0}, number: {1}", kvp.Key, kvp.Value);
 
-            for (int i = 0; i < numberOfDays; i++)
+            for (int n = 0; n < numberOfDays; n++)
             {
-                for (int f = 0; f < fishTable.Count; f++)
-                {
-                    if (f==0)
-                    {
-                        fishTable[8] = fishTable[0];
-                        fishTable[6] += fishTable[0];
-                    }
-                    if (fishTable[f]!=0)
-                    {
-                        fishTable[f-1] = fishTable[f];
-
-                        //fishTable[7] = fishTable[8];
-                        //fishTable[6] = fishTable[7];
-                        //fishTable[5] = fishTable[6];
-                        //fishTable[4] = fishTable[5];
-                        //fishTable[3] = fishTable[4];
-                        //fishTable[2] = fishTable[3];
-                        //fishTable[1] = fishTable[2];
-                        //fishTable[0] = fishTable[6];
-
-                    }
-                }   
-
+                BigInteger newfish = fishdata[0];
+                fishdata[0] = fishdata[1];
+                fishdata[1] = fishdata[2];
+                fishdata[2] = fishdata[3];
+                fishdata[3] = fishdata[4];
+                fishdata[4] = fishdata[5];
+                fishdata[5] = fishdata[6];
+                fishdata[6] = fishdata[7];
+                fishdata[7] = fishdata[8];
+                fishdata[8] = newfish;
+                fishdata[6] += newfish;
             }
-            foreach (KeyValuePair<int, BigInteger> kvp in fishTable)
-                Console.WriteLine("days old: {0}, number: {1}", kvp.Key, kvp.Value);
+
+            BigInteger total = 0;
+
+            foreach (BigInteger n in fishdata)
+                total += n;
+
+            Console.WriteLine(total);
+        
 
 
-            BigInteger sum = 
+        
+
             //keep console open
             Console.WriteLine("Hit any key to close this window...");
             Console.ReadKey();
@@ -136,8 +120,8 @@ namespace AdventOfCodeStartProject
             //var anzahl_fische = 1 * Math.Pow(1 / 7, numberOfDays - start_tag);
             //var anzahl_fische_neu   = Math.Pow(1 / 9, 9)
 
-
         }
+    
         
 
 
