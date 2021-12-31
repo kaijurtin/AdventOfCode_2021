@@ -28,17 +28,27 @@ namespace AdventOfCodeStartProject
             Console.WriteLine("Content of input.txt:");
             _inputData.ForEach(i => Console.WriteLine(i));
             Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
+
+            int counter = 0;
             List<string> showItems = new List<string>();
-            var digits = _inputData[0].Split('|', (char)StringSplitOptions.RemoveEmptyEntries)
-                .Select(f => f.ToString()
-                    .Split(' ', (char)StringSplitOptions.RemoveEmptyEntries))
-                .ToList();
 
-            var one = digits[0].Where(i => i.Length == 2);
-            var seven = digits.Where(i => i.Length == 3);
-            var four = digits.Where(i => i.Length == 4);
 
-            //showItems.Add(code);
+            foreach (string line in _inputData)
+            {
+                var digits = line.Split('|', (char)StringSplitOptions.RemoveEmptyEntries)
+                    .Select(f => f.ToString()
+                        .Split(' ', (char)StringSplitOptions.RemoveEmptyEntries))
+                    .ToList();
+
+                var one = digits[1].Count(x => x.Length == 2); counter += one;
+                var four = digits[1].Count(x => x.Length == 4); counter += four;
+                var seven = digits[1].Count(x => x.Length == 3); counter += seven;
+                var eight = digits[1].Count(x => x.Length == 7); counter += eight;
+            }
+
+
+
+            Console.WriteLine(counter);
 
             //keep console open
             Console.WriteLine("Hit any key to close this window...");
