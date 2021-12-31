@@ -30,8 +30,9 @@ namespace AdventOfCodeStartProject
             Console.WriteLine($"--END OF FILE--{Environment.NewLine}");
 
             int counter = 0;
-            List<string> showItems = new List<string>();
-
+            List<string> signalPatterns = new List<string>();
+            List<string> outputValue = new List<string>();
+            List<string> foundPatterns = new List<string>();
 
             foreach (string line in _inputData)
             {
@@ -40,14 +41,63 @@ namespace AdventOfCodeStartProject
                         .Split(' ', (char)StringSplitOptions.RemoveEmptyEntries))
                     .ToList();
 
-                var one = digits[1].Count(x => x.Length == 2); counter += one;
-                var four = digits[1].Count(x => x.Length == 4); counter += four;
-                var seven = digits[1].Count(x => x.Length == 3); counter += seven;
-                var eight = digits[1].Count(x => x.Length == 7); counter += eight;
+                signalPatterns = digits[0].ToList();
+                outputValue = digits[1].ToList();
+
+
+                //var one = digits[1].Count(x => x.Length == 2); counter += one;
+                //var four = digits[1].Count(x => x.Length == 4); counter += four;
+                //var seven = digits[1].Count(x => x.Length == 3); counter += seven;
+                //var eight = digits[1].Count(x => x.Length == 7); counter += eight;
+
+                signalPatterns = signalPatterns.OrderBy(x => x.Length).ToList();
+
+                foreach (var pattern in signalPatterns)
+                {
+                    switch (pattern.Length)
+                    {
+                        case 2:
+                            foundPatterns[1] = pattern;
+                            signalPatterns.Remove(pattern);
+                            break;
+
+                        case 3:
+                            foundPatterns[7] = pattern;
+                            signalPatterns.Remove(pattern);
+                            break;
+
+                        case 4:
+                            foundPatterns[4] = pattern;
+                            signalPatterns.Remove(pattern);
+                            break;
+
+                        case 5: //2 or 3 or 5
+                                //foundPatterns[7] = pattern;
+                                //signalPatterns.Remove(pattern);
+                            break;
+                        case 6: //6 or 9 or 0
+                                //foundPatterns[7] = pattern;
+                                //signalPatterns.Remove(pattern);
+                            break;
+                        case 7:
+                            foundPatterns[8] = pattern;
+                            signalPatterns.Remove(pattern);
+                            break;
+
+
+
+
+
+                        default:
+                            signalPatterns.Remove(pattern);
+                            break;
+
+
+                    }
+
+
+                }
             }
-
-
-
             Console.WriteLine(counter);
 
             //keep console open
