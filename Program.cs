@@ -32,7 +32,10 @@ namespace AdventOfCodeStartProject
             int counter = 0;
             List<string> signalPatterns = new List<string>();
             List<string> outputValue = new List<string>();
-            string [] foundPatterns = new string [9];
+            string[] foundPatterns = new string[9] {"0", "0", "0", "0", "0", "0", "0", "0", "0" } ;
+            //Array.Clear(foundPatterns,0, foundPatterns.Length);
+            
+
 
             foreach (string line in _inputData)
             {
@@ -51,12 +54,13 @@ namespace AdventOfCodeStartProject
                 //var eight = digits[1].Count(x => x.Length == 7); counter += eight;
 
                 signalPatterns = signalPatterns.OrderBy(x => x.Length).ToList();
-
                 while (signalPatterns.Count>0)
                 {
-                    for(int i=0; i>signalPatterns.Count; i++)
-                    {
-                        string pattern = signalPatterns[i];
+                    //for(int i=0; i>signalPatterns.Count; i++)
+                    //{
+                    string pattern = signalPatterns.First();//.OrderBy(x=>x).ToString(); 
+                        //pattern = pattern.OrderBy(x=>x).ToString();
+
                         switch (pattern.Length)
                         {
                             case 0:
@@ -79,17 +83,18 @@ namespace AdventOfCodeStartProject
                                 break;
 
                             case 5: //2 or 3 or 5
-                                if (foundPatterns[6].Contains(pattern))
+                                if (findAllLetters(pattern, foundPatterns[6]))
                                     foundPatterns[5] = pattern;
-                                if (foundPatterns[8].Contains(pattern) && foundPatterns[9].Contains(pattern))
+                                if (findAllLetters(pattern, foundPatterns[8]) &&
+                                    findAllLetters(pattern, foundPatterns[9]))
                                     foundPatterns[3] = pattern;
                                 else foundPatterns[2] = pattern;
                                 signalPatterns.Remove(pattern);
                                 break;
                             case 6: //6 or 9 or 0
-                                if (pattern.Contains(foundPatterns[3]))
+                                if (findAllLetters(foundPatterns[3], pattern))
                                     foundPatterns[9] = pattern;
-                                if (foundPatterns[8].Contains(pattern))
+                                if (findAllLetters(pattern, foundPatterns[8]))
                                     foundPatterns[0] = pattern;
                                 else foundPatterns[6] = pattern;
                                 signalPatterns.Remove(pattern);
@@ -100,16 +105,12 @@ namespace AdventOfCodeStartProject
                                 signalPatterns.Remove(pattern);
                                 break;
 
-
-
-
-
                             default:
-                                signalPatterns.Remove(pattern);
+                                //signalPatterns.Remove(pattern);
                                 break;
 
                         }
-                    }
+                    //}
                 }
                 foreach (var item in foundPatterns)
                 {
@@ -136,7 +137,16 @@ namespace AdventOfCodeStartProject
     
         
 
-
+        private static bool findAllLetters(string input, string existing)
+        {
+            return false;
+            for (int i = 0; i < input.Length; i++)
+            {
+                if(existing.Contains(input[i]))
+                    return true;
+                else return false;
+            }
+        }
 
         private static void readInput()
         {
