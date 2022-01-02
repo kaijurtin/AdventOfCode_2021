@@ -32,7 +32,7 @@ namespace AdventOfCodeStartProject
             int counter = 0;
             List<string> signalPatterns = new List<string>();
             List<string> outputValue = new List<string>();
-            List<string> foundPatterns = new List<string>();
+            string [] foundPatterns = new string [9];
 
             foreach (string line in _inputData)
             {
@@ -52,53 +52,72 @@ namespace AdventOfCodeStartProject
 
                 signalPatterns = signalPatterns.OrderBy(x => x.Length).ToList();
 
-                foreach (var pattern in signalPatterns)
+                while (signalPatterns.Count>0)
                 {
-                    switch (pattern.Length)
+                    for(int i=0; i>signalPatterns.Count; i++)
                     {
-                        case 2:
-                            foundPatterns[1] = pattern;
-                            signalPatterns.Remove(pattern);
-                            break;
+                        string pattern = signalPatterns[i];
+                        switch (pattern.Length)
+                        {
+                            case 0:
+                                signalPatterns.Remove(pattern);
+                                break;
 
-                        case 3:
-                            foundPatterns[7] = pattern;
-                            signalPatterns.Remove(pattern);
-                            break;
+                            case 2:
+                                foundPatterns[1] = pattern;
+                                signalPatterns.Remove(pattern);
+                                break;
 
-                        case 4:
-                            foundPatterns[4] = pattern;
-                            signalPatterns.Remove(pattern);
-                            break;
+                            case 3:
+                                foundPatterns[7] = pattern;
+                                signalPatterns.Remove(pattern);
+                                break;
 
-                        case 5: //2 or 3 or 5
-                                //foundPatterns[7] = pattern;
-                                //signalPatterns.Remove(pattern);
-                            break;
-                        case 6: //6 or 9 or 0
-                                //foundPatterns[7] = pattern;
-                                //signalPatterns.Remove(pattern);
-                            break;
-                        case 7:
-                            foundPatterns[8] = pattern;
-                            signalPatterns.Remove(pattern);
-                            break;
+                            case 4:
+                                foundPatterns[4] = pattern;
+                                signalPatterns.Remove(pattern);
+                                break;
+
+                            case 5: //2 or 3 or 5
+                                if (foundPatterns[6].Contains(pattern))
+                                    foundPatterns[5] = pattern;
+                                if (foundPatterns[8].Contains(pattern) && foundPatterns[9].Contains(pattern))
+                                    foundPatterns[3] = pattern;
+                                else foundPatterns[2] = pattern;
+                                signalPatterns.Remove(pattern);
+                                break;
+                            case 6: //6 or 9 or 0
+                                if (pattern.Contains(foundPatterns[3]))
+                                    foundPatterns[9] = pattern;
+                                if (foundPatterns[8].Contains(pattern))
+                                    foundPatterns[0] = pattern;
+                                else foundPatterns[6] = pattern;
+                                signalPatterns.Remove(pattern);
+                                break;
+
+                            case 7:
+                                foundPatterns[8] = pattern;
+                                signalPatterns.Remove(pattern);
+                                break;
 
 
 
 
 
-                        default:
-                            signalPatterns.Remove(pattern);
-                            break;
+                            default:
+                                signalPatterns.Remove(pattern);
+                                break;
 
-
+                        }
                     }
-
-
                 }
+                foreach (var item in foundPatterns)
+                {
+                    Console.WriteLine(item);
+                }
+
             }
-            Console.WriteLine(counter);
+            //Console.WriteLine(counter);
 
             //keep console open
             Console.WriteLine("Hit any key to close this window...");
